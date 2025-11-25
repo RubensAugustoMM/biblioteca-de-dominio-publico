@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome TEXT NOT NULL,
     senha TEXT NOT NULL,
     cpf TEXT UNIQUE,
-    email TEXT UNIQUE,
+    email TEXT UNIQUE NUT NULL,
     idade INTEGER CHECK (idade >= 0)
 );
 

@@ -2,20 +2,27 @@ package com.bibliotecapublica.servico_biblioteca_publica.Dominio;
 
 import java.util.Date;
 
+import org.hibernate.annotations.ManyToAny;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "livros_usuarios")
 public class LivroUsuario extends Entidade{
-    private int idLivro;
+    @ManyToAny
+    @JoinColumn(name = "id_livro")
     private Livro livro;
-    private int idUsuario;
+
+    @ManyToAny
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
+
+    @Enumerated(EnumType.STRING)
     private TipoLivroUsuario tipo;
 
     public LivroUsuario(int id, Date dataCadastro) {
         super(id, dataCadastro);
         //TODO Auto-generated constructor stub
-    }
-
-    public int getIdLivro() {
-        return idLivro;
     }
 
     public Livro getLivro() {
@@ -26,12 +33,7 @@ public class LivroUsuario extends Entidade{
     public void setLivro(Livro livro) throws Exception{
         if(livro.getId() == 0)
             throw new Exception("idLivro invalido!");
-        this.idLivro = livro.getId();
         this.livro = livro; 
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
     }
 
     public Usuario getUsuario() {
@@ -42,7 +44,6 @@ public class LivroUsuario extends Entidade{
     public void setUsuario(Usuario usuario) throws Exception{
         if(usuario.getId() == 0)
             throw new Exception("idUsuario invalido!");
-        this.idUsuario = livro.getId();
         this.usuario = usuario;
     }
 

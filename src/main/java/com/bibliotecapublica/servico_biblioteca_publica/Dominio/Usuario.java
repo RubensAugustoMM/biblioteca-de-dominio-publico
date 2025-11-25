@@ -1,11 +1,21 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Dominio;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario extends Entidade{
+    @Column(nullable =  false)
     private String login;
+    @Column(nullable =  false)
     private String nome;
+    @Column()
     private String cpf;
+    @Column(nullable = false)
     private String senha;
+    @Column(nullable = false)
     private String email;
+    @Column()
     private int idade;
 
     public Usuario(int id, java.util.Date dataCadastro) {

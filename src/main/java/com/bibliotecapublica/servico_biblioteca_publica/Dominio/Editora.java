@@ -2,7 +2,12 @@ package com.bibliotecapublica.servico_biblioteca_publica.Dominio;
 
 import java.util.Date;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "editoras")
 public class Editora extends Entidade{
+    @Column(nullable = false)
     private String nome;
 
     public Editora(int id, Date dataCadastro) {
