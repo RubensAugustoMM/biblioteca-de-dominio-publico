@@ -18,11 +18,6 @@ public class Usuario extends Entidade{
     @Column()
     private int idade;
 
-    public Usuario(int id, java.util.Date dataCadastro) {
-        super(id, dataCadastro);
-        //TODO Auto-generated constructor stub
-    }
-
     public String getLogin() {
         return login;
     }

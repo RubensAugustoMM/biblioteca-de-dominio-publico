@@ -1,36 +1,24 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Servicos;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Livro;
 import com.bibliotecapublica.servico_biblioteca_publica.Infra.Repositorios.RepositorioLivro;
 
-@RestController
-@RequestMapping("/api/livro")
+
+@Service
 public class ServicoLivro {
-    @GetMapping("/")
-    public Livro[] listarLivros(){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
-    }
+    private final RepositorioLivro repositorioLivro;
 
-    @GetMapping("/favoritar/{idLivro}")
-    public void favoritarLivro(@PathVariable("idLivro") String id){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    @Autowired
+    public ServicoLivro ( RepositorioLivro repositorioLivro) {
+        this.repositorioLivro = repositorioLivro;
     }
-
-    @GetMapping("/excluir/{idLivro}")
-    public void excluirLivro(@PathVariable("idLivro") String id){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
-    }
-    //ainda não coloquei o mapping porque é um pouco mais cimplicado pois lida com serialização em json, o que é um saco
-    public void adicionarLivro(){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
-    }
-
-    //ainda não coloquei o mapping porque é um pouco mais cimplicado pois lida com serialização em json, o que é um saco
-    public void atualizarLivro(){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    
+    @Transactional
+    public Livro salvarLivro(Livro livro) {
+        return repositorioLivro.salvar(livro);
     }
 }

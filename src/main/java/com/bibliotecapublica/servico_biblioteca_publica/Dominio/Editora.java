@@ -10,11 +10,6 @@ public class Editora extends Entidade{
     @Column(nullable = false)
     private String nome;
 
-    public Editora(int id, Date dataCadastro) {
-        super(id, dataCadastro);
-        //TODO Auto-generated constructor stub
-    }
-
     public String getNome(){
         return this.nome;
     }

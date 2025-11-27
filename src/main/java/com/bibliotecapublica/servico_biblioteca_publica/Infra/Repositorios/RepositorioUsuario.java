@@ -1,31 +1,47 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Infra.Repositorios;
 
+import org.springframework.stereotype.Repository;
+
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Usuario;
 
-public class RepositorioUsuario implements iRepositorio<Usuario>{
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
+public class RepositorioUsuario implements iRepositorio<Usuario>{
+    @PersistenceContext
+    private EntityManager gerenciadorEntidades;
+
+    @Transactional
     @Override
     public Usuario[] obterTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+        TypedQuery<Usuario> query = gerenciadorEntidades.createQuery("SELECT U FROM Usuario", Usuario.class);
+        return (Usuario[])query.getResultList().toArray();
     }
 
+    @Transactional
     @Override
     public Usuario obterPorId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterPorId'");
+        return gerenciadorEntidades.find(Usuario.class, id);
     }
 
+    @Transactional
     @Override
     public void deletarPorId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletarPorId'");
+        Usuario usuario = obterPorId(id);
+        gerenciadorEntidades.remove(usuario);
     }
 
+    @Transactional
     @Override
-    public void atualizar(Usuario entidade) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    public Usuario salvar(Usuario entidade) {
+        if (entidade.getId() == 0) {
+            gerenciadorEntidades.persist(entidade);
+            return entidade;
+        }
+        else
+            return gerenciadorEntidades.merge(entidade);
     }
-
 }

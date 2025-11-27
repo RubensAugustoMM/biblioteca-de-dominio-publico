@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS livros (
     ativo INTEGER NOT NULL DEFAULT 1,
     nome TEXT NOT NULL,
     data_lancamento TEXT,
-    genero TEXT,
+    genero TEXT NOT NULL,
     id_editora INTEGER,
     id_autor INTEGER,
     FOREIGN KEY (id_editora) REFERENCES editoras(id) ON DELETE SET NULL ON UPDATE CASCADE,

@@ -16,21 +16,13 @@ public class Livro extends Entidade{
     @Column(nullable = false)
     private String genero;
 
-    @Column(name = "id_editora", nullable = false)
-    private int idEditora;
-
-    @Transient
+    @ManyToOne
+    @JoinColumn(name="id_editora")
     private Editora editora;
 
-    @Column(name = "id_autor", nullable = false)
-    private int idAutor;
-
-    @Transient
+    @ManyToOne
+    @JoinColumn(name="id_autor")
     private Autor autor;
-
-    public Livro(int id, Date dataCadastro) {
-        super(id, dataCadastro);
-    }
 
     public String getNome(){
         return this.nome;
@@ -55,10 +47,6 @@ public class Livro extends Entidade{
     public void setGenero(String genero) {
         this.genero = genero;
     }   
-
-    public int getIdEditora() {
-        return idEditora;
-    }
  
     public Editora getEditora() {
         return editora;
@@ -68,12 +56,7 @@ public class Livro extends Entidade{
     public void setEditora(Editora editora) throws Exception {
         if(editora.getId() == 0)
             throw new Exception("idEditora invalido!");
-        this.idEditora = editora.getId();
         this.editora = editora;
-    }
-
-    public int getIdAutor() {
-        return idAutor;
     }
 
     public Autor getAutor() {
@@ -84,7 +67,6 @@ public class Livro extends Entidade{
     public void setAutor(Autor autor) throws Exception{
         if(autor.getId() == 0)
             throw new Exception("idAutor invalido!");
-        this.idAutor = autor.getId();
         this.autor = autor;
     }
 }

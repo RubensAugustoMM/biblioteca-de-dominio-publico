@@ -2,28 +2,21 @@ package com.bibliotecapublica.servico_biblioteca_publica.Dominio;
 
 import java.util.Date;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "livros_usuarios")
 public class LivroUsuario extends Entidade{
-    @ManyToAny
+    @ManyToOne
     @JoinColumn(name = "id_livro")
     private Livro livro;
 
-    @ManyToAny
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @Enumerated(EnumType.STRING)
     private TipoLivroUsuario tipo;
-
-    public LivroUsuario(int id, Date dataCadastro) {
-        super(id, dataCadastro);
-        //TODO Auto-generated constructor stub
-    }
 
     public Livro getLivro() {
         return livro;

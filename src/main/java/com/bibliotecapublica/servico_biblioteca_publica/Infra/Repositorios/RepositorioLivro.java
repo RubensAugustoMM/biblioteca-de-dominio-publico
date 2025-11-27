@@ -1,30 +1,47 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Infra.Repositorios;
 
+import org.springframework.stereotype.Repository;
+
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Livro;
 
-public class RepositorioLivro implements iRepositorio<Livro>{
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
+public class RepositorioLivro implements iRepositorio<Livro>{
+    @PersistenceContext
+    private EntityManager gerenciadorEntidades;
+
+    @Transactional
     @Override
     public Livro[] obterTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+        TypedQuery<Livro> query = gerenciadorEntidades.createQuery("SELECT L FROM Livro", Livro.class);
+        return (Livro[])query.getResultList().toArray();
     }
 
+    @Transactional
     @Override
     public Livro obterPorId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterPorId'");
+        return gerenciadorEntidades.find(Livro.class, id);
     }
 
+    @Transactional
     @Override
     public void deletarPorId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletarPorId'");
+        Livro livro = obterPorId(id);
+        gerenciadorEntidades.remove(livro);
     }
 
+    @Transactional
     @Override
-    public void atualizar(Livro entidade) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    public Livro salvar(Livro entidade) {
+        if (entidade.getId() == 0) {
+            gerenciadorEntidades.persist(entidade);
+            return entidade;
+        }
+        else 
+            return gerenciadorEntidades.merge(entidade);
     }
 }

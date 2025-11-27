@@ -11,12 +11,10 @@ public abstract class Entidade {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
     private Date dataCadastro;
-    private boolean ativo;
+    private boolean ativo = true;
 
-    public Entidade(int id, Date dataCadastro){
-        this.id = id;
-        this.dataCadastro = dataCadastro;
-        this.ativo = true;
+    public Entidade() {
+        dataCadastro = new Date();
     }
 
     public int getId(){

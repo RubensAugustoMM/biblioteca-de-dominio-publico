@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### flyway ###
-./data
+/data

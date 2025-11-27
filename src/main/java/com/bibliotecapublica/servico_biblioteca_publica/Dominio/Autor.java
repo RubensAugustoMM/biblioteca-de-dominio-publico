@@ -9,10 +9,6 @@ import jakarta.persistence.*;
 public class Autor extends Entidade{
     @Column(nullable = false)
     private String nome;
-
-    public Autor(int id, Date dataCadastro) {
-        super(id, dataCadastro);
-    }
     
     public String getNome(){
         return this.nome;
