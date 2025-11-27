@@ -5,14 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Livro;
+import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Usuario;
 import com.bibliotecapublica.servico_biblioteca_publica.Servicos.ServicoLivro;
+import com.bibliotecapublica.servico_biblioteca_publica.Servicos.ServicoUsuario;
 
 @RestController
 @RequestMapping("/api/livro")
 public class ControladorLivro {
-    private final ServicoLivro servicoLivro;
+    private final ServicoUsuario servicoLivro;
 
-    public ControladorLivro (ServicoLivro servicoLivro) {
+    public ControladorLivro (ServicoUsuario servicoLivro) {
         this.servicoLivro = servicoLivro;
     }
 
@@ -22,12 +24,19 @@ public class ControladorLivro {
     }
 
     @GetMapping("/teste")
-    public ResponseEntity<Livro> criarLivro(){
-        Livro livro1 = new Livro();
-        livro1.setNome("teste");
-        livro1.setGenero("lixo");
-        servicoLivro.salvarLivro(livro1);
-        return ResponseEntity.status(HttpStatus.CREATED).body(livro1);
+    public ResponseEntity<Usuario> teste(){
+        Usuario usuario = new Usuario();
+        usuario.setNome("teste");
+        usuario.setLogin("teste");
+        usuario.setSenha("teste");
+        usuario.setEmail("teste");
+        servicoLivro.salvarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+    }
+
+    @PostMapping
+    public ResponseEntity<Usuario> criarLivro(){
+        throw new UnsupportedOperationException("Unimplemented method 'criarLivros'");
     }
 
     @GetMapping("/favoritar/{idLivro}")

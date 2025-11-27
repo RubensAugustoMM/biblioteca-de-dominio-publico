@@ -1,38 +1,34 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Servicos;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Autor;
-import com.bibliotecapublica.servico_biblioteca_publica.Infra.Repositorios.RepositorioAutor;
+import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Usuario;
+import com.bibliotecapublica.servico_biblioteca_publica.Infra.Repositorios.RepositorioUsuario;
 
-@RestController
-@RequestMapping("/api/usuario")
+@Service
 public class ServicoUsuario {
-    @GetMapping("/criar")
-    public void criarUsuario(){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    private final RepositorioUsuario repositorioUsuario;
+
+    @Autowired
+    public ServicoUsuario (RepositorioUsuario repositorioUsuario) {
+        this.repositorioUsuario = repositorioUsuario;
+    }
+    public void salvarUsuario(Usuario usuario){
+        repositorioUsuario.salvar(usuario);
     }
 
-    @GetMapping("/excluir/{idUsuario}")
     public void excluirUsuario(@PathVariable("idUsuario") String idUsuario){
         throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
     }
 
-    @GetMapping("/desabilitar/{idUsuario}")
     public void desabilitarUsuario(@PathVariable("idUsuario") String idUsuario){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+        throw new UnsupportedOperationException("Unimplemented method 'desabilitarUsuario'");
     }
 
-    @GetMapping("/login/{idUsuario}")
-    public int realizarLogin(@PathVariable("idUsuario") String idUsuario){
-		RepositorioAutor repositorioAutor = new RepositorioAutor();
-		Autor autor = new Autor();
-		autor.setNome("teste");
-		repositorioAutor.salvar(autor);
-        return autor.getId();
+    public boolean realizarLogin(String idUsuario){
+        throw new UnsupportedOperationException("Unimplemented method 'realizarLogin'");
     } 
     //TODO: adicionar mais métodos referentes ao usuário
 }
