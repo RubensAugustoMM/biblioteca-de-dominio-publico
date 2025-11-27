@@ -1,5 +1,3 @@
-PRAGMA foreign_keys = ON;
-
 CREATE TABLE IF NOT EXISTS editoras (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     data_cadastro TEXT NOT NULL DEFAULT (datetime('now')),
@@ -35,7 +33,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome TEXT NOT NULL,
     senha TEXT NOT NULL,
     cpf TEXT UNIQUE,
-    email TEXT UNIQUE NUT NULL,
+    email TEXT UNIQUE NOT NULL,
     idade INTEGER CHECK (idade >= 0)
 );
 
@@ -50,8 +48,3 @@ CREATE TABLE IF NOT EXISTS livros_usuarios (
     FOREIGN KEY (id_usuario)  REFERENCES usuarios(id)  ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT uq_livro_usuario_tipo UNIQUE (id_livro, id_usuario, tipo)
 );
-
-CREATE INDEX IF NOT EXISTS idx_livros_id_editora ON livros(id_editora);
-CREATE INDEX IF NOT EXISTS idx_livros_id_autor   ON livros(id_autor);
-CREATE INDEX IF NOT EXISTS idx_livros_usuarios_id_livro ON livros_usuarios(id_livro);
-CREATE INDEX IF NOT EXISTS idx_livros_usuarios_id_usuario ON livros_usuarios(id_usuario);
