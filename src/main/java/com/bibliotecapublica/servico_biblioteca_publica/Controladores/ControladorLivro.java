@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Livro;
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Usuario;
-import com.bibliotecapublica.servico_biblioteca_publica.Servicos.ServicoLivro;
 import com.bibliotecapublica.servico_biblioteca_publica.Servicos.ServicoUsuario;
 
 @RestController
@@ -42,6 +41,18 @@ public class ControladorLivro {
     @GetMapping("/favoritar/{idLivro}")
     public void favoritarLivro(@PathVariable("idLivro") String id){
         throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    }
+
+    public void ativarUsuario() {
+
+    }
+
+    public void desabilitarUsuario() {
+
+    }
+
+    public void obterTodosUsuarios() {
+
     }
 
     @GetMapping("/excluir/{idLivro}")

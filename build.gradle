@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.51.0.0'
     implementation 'org.hibernate.orm:hibernate-community-dialects:6.2.9.Final'
 	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.mindrot:jbcrypt:0.4'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

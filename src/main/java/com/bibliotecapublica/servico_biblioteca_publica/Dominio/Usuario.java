@@ -13,6 +13,8 @@ public class Usuario extends Entidade{
     private String cpf;
     @Column(nullable = false)
     private String senha;
+    @Column(nullable = false, name="senha_salt")
+    private String senhaSalt;
     @Column(nullable = false)
     private String email;
     @Column()
@@ -64,6 +66,14 @@ public class Usuario extends Entidade{
 
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+
+    public void setSenhaSalt(String salt){
+        this.senhaSalt = salt;
+    }
+
+    public String getSenhaSalt() {
+        return this.senhaSalt;
     }
 }
 
