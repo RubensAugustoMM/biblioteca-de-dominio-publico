@@ -1,6 +1,6 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Dominio;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import jakarta.persistence.*;
 
 //Esta é a classe base de todos os tipos de daados do modelo, definindo campos e 
@@ -10,18 +10,20 @@ public abstract class Entidade {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
-    private Date dataCadastro;
+    @Column(name = "data_cadastro")
+    private OffsetDateTime dataCadastro;
+    @Column
     private boolean ativo = true;
 
     public Entidade() {
-        dataCadastro = new Date();
+        dataCadastro = OffsetDateTime.now();
     }
 
     public int getId(){
         return this.id;
     }
 
-    public Date getDataCadastro(){
+    public OffsetDateTime getDataCadastro(){
         return this.dataCadastro;
     }
 

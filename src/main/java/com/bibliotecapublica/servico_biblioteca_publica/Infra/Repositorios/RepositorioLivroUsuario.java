@@ -1,5 +1,7 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Infra.Repositorios;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.LivroUsuario;
@@ -16,9 +18,9 @@ public class RepositorioLivroUsuario implements iRepositorio<LivroUsuario>{
 
     @Transactional
     @Override
-    public LivroUsuario[] obterTodos() {
+    public List<LivroUsuario> obterTodos() {
         TypedQuery<LivroUsuario> query = gerenciadorEntidades.createQuery("SELECT LU FROM LivroUsuario LU",LivroUsuario.class);
-        return (LivroUsuario[])query.getResultList().toArray(); 
+        return query.getResultList(); 
     }
 
     @Transactional

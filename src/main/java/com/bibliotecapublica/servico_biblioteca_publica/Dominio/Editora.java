@@ -1,7 +1,5 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Dominio;
 
-import java.util.Date;
-
 import jakarta.persistence.*;
 
 @Entity

@@ -29,7 +29,7 @@ public class ControladorLivro {
         usuario.setLogin("teste");
         usuario.setSenha("teste");
         usuario.setEmail("teste");
-        servicoLivro.salvarUsuario(usuario);
+        servicoLivro.salvar(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
@@ -41,18 +41,6 @@ public class ControladorLivro {
     @GetMapping("/favoritar/{idLivro}")
     public void favoritarLivro(@PathVariable("idLivro") String id){
         throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
-    }
-
-    public void ativarUsuario() {
-
-    }
-
-    public void desabilitarUsuario() {
-
-    }
-
-    public void obterTodosUsuarios() {
-
     }
 
     @GetMapping("/excluir/{idLivro}")
