@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Usuario;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,16 @@ public class RepositorioUsuario implements iRepositorio<Usuario>{
         }
         else
             return gerenciadorEntidades.merge(entidade);
+    } 
+
+    public Usuario obterPorLogin(String login) {
+        if (login == null) return null;
+        try {
+            TypedQuery<Usuario> q = gerenciadorEntidades.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class);
+            q.setParameter("login", login);
+            return q.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }  
     }
 }

@@ -1,5 +1,6 @@
-import { type Entidade } from './entidade.tsx';
-
-export interface Editora extends Entidade{
-    nome : string;
-} 
+export class Editora {
+  id!: number;
+  dataCadastro!: string;
+  ativo!: boolean;
+  nome!: string;
+}

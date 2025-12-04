@@ -1,5 +1,6 @@
-import type { Entidade } from "./entidade";
-
-export interface Autor extends Entidade {
-    nome : string;
+export class Autor {
+  id!: number;
+  dataCadastro!: string;
+  ativo!: boolean;
+  nome!: string;
 }

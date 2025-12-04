@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --accent:#065f46;    
+  --accent-600:#047857;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --bg:#0f172a; 
+}
+
+html,body,#root{
+  height:100%;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md font-medium transition;
+}
+.btn-primary { @apply btn bg-gradient-to-r from-green-600 to-emerald-500 text-white px-4 py-2 shadow-md hover:brightness-95; }
+.btn-ghost { @apply btn bg-white/5 text-white/90 px-3 py-1; }
+.card {
+  @apply bg-white/90 dark:bg-slate-900 rounded-xl shadow-md p-4;
+}
+.small-muted { @apply text-sm text-gray-500; }
+.kicker { @apply text-xs uppercase tracking-wider text-emerald-600 font-semibold; }

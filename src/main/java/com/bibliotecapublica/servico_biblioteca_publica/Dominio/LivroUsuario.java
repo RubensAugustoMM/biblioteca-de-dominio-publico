@@ -21,9 +21,7 @@ public class LivroUsuario extends Entidade{
     }
 
     //TODO: criar uma excessao propria para o caso do id for invalido
-    public void setLivro(Livro livro) throws Exception{
-        if(livro.getId() == 0)
-            throw new Exception("idLivro invalido!");
+    public void setLivro(Livro livro){
         this.livro = livro; 
     }
 
@@ -32,9 +30,7 @@ public class LivroUsuario extends Entidade{
     }
 
     //TODO: criar uma excessao propria para o caso do id for invalido
-    public void setUsuario(Usuario usuario) throws Exception{
-        if(usuario.getId() == 0)
-            throw new Exception("idUsuario invalido!");
+    public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
 

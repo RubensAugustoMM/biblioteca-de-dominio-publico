@@ -1,50 +1,51 @@
 package com.bibliotecapublica.servico_biblioteca_publica.Controladores;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Livro;
-import com.bibliotecapublica.servico_biblioteca_publica.Dominio.Usuario;
-import com.bibliotecapublica.servico_biblioteca_publica.Servicos.ServicoUsuario;
+import com.bibliotecapublica.servico_biblioteca_publica.Servicos.ServicoLivro;
 
 @RestController
 @RequestMapping("/api/livro")
 public class ControladorLivro {
-    private final ServicoUsuario servicoLivro;
+    private final ServicoLivro servicoLivro;
 
-    public ControladorLivro (ServicoUsuario servicoLivro) {
+    public ControladorLivro(ServicoLivro servicoLivro) {
         this.servicoLivro = servicoLivro;
     }
 
-    @GetMapping("/")
-    public Livro[] listarLivros(){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    @GetMapping("/todos")
+    public ResponseEntity<List<Livro>> obterTodos() {
+        return ResponseEntity.ok(servicoLivro.obterTodos());
     }
 
-    @GetMapping("/teste")
-    public ResponseEntity<Usuario> teste(){
-        Usuario usuario = new Usuario();
-        usuario.setNome("teste");
-        usuario.setLogin("teste");
-        usuario.setSenha("teste");
-        usuario.setEmail("teste");
-        servicoLivro.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+    @GetMapping("/{id}")
+    public ResponseEntity<Livro> obterPorId(@PathVariable int id) {
+        return ResponseEntity.ok(servicoLivro.obterPorId(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> criarLivro(){
-        throw new UnsupportedOperationException("Unimplemented method 'criarLivros'");
+    @PostMapping("/salvar")
+    public ResponseEntity<Livro> salvar(@RequestBody Livro livro) {
+        Livro salvo = servicoLivro.salvar(livro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
-    @GetMapping("/favoritar/{idLivro}")
-    public void favoritarLivro(@PathVariable("idLivro") String id){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    @PostMapping("/favoritar/{idLivro}/{idUsuario}")
+    public ResponseEntity<Void> favoritarLivro(
+            @PathVariable int idLivro,
+            @PathVariable int idUsuario) {
+            
+        servicoLivro.favoritar(idLivro, idUsuario);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/excluir/{idLivro}")
-    public void excluirLivro(@PathVariable("idLivro") String id){
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+    @DeleteMapping("/excluir/{idLivro}")
+    public ResponseEntity<Void> excluirLivro(@PathVariable int idLivro) {
+        servicoLivro.excluir(idLivro);
+        return ResponseEntity.noContent().build();
     }
 }

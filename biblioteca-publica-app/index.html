@@ -1,10 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biblioteca-publica-app</title>
+    <title>Biblioteca Pública</title>
+
+    <script>
+      window.tailwind = {
+        config: {
+          theme: { extend: {} },
+          content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+        }
+      }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root"></div>

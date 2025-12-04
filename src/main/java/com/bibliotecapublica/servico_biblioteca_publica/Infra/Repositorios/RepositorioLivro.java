@@ -19,7 +19,7 @@ public class RepositorioLivro implements iRepositorio<Livro>{
     @Transactional
     @Override
     public List<Livro> obterTodos() {
-        TypedQuery<Livro> query = gerenciadorEntidades.createQuery("SELECT L FROM Livro", Livro.class);
+        TypedQuery<Livro> query = gerenciadorEntidades.createQuery("SELECT L FROM Livro L", Livro.class);
         return query.getResultList();
     }
 

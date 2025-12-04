@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { UsuarioProvider } from './contexts/UsuarioContext';
+import { useUsuario } from './hooks/useUsuario';
+import LayoutPrincipal from './interface/LayoutPrincipal';
+import Favoritos from '.\interface\paginas\Favoritos';
+import Admin from './interface/paginas/Admin';
+import AdminLivros from './interface/paginas/AdminLivros';
+import AdminAutores from './interface/paginas/AdminAutores';
+import AdminEditoras from './interface/paginas/AdminEditoras';
 
-let App = () => {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function RotaPrivada({ children }: { children: React.ReactNode }) {
+  const { usuario, loading } = useUsuario();
+  if (loading) return <div className="p-6">Carregando...</div>;
+  if (!usuario) return <Navigate to="/" replace />;
+  return <>{children}</>;
 }
 
-export default App
+export default function App() {
+  return (
+    <UsuarioProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LayoutPrincipal />}>
+            <Route path="favoritos" element={<RotaPrivada><Favoritos /></RotaPrivada>} />
+            <Route path="admin" element={<RotaPrivada><Admin /></RotaPrivada>} />
+            <Route path="admin/livros" element={<RotaPrivada><AdminLivros /></RotaPrivada>} />
+            <Route path="admin/autores" element={<RotaPrivada><AdminAutores /></RotaPrivada>} />
+            <Route path="admin/editoras" element={<RotaPrivada><AdminEditoras /></RotaPrivada>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UsuarioProvider>
+  );
+}

@@ -68,24 +68,38 @@ public class ServicoUsuario {
         return this.repositorioUsuario.obterTodos();
     }
 
-    @Transactional
-    public boolean realizarLogin(int id){
-        List<Usuario> usuarios = this.repositorioUsuario.obterTodos();
-        Usuario usuario = this.repositorioUsuario.obterPorId(id); 
-        for(Usuario usr : usuarios) {
-            if(verificarSenha(usuario, usr))
-                return true;
-        }
+@Transactional
+public boolean realizarLogin(Usuario credenciais) {
+    if (credenciais == null || credenciais.getLogin() == null || credenciais.getSenha() == null) {
         return false;
-    }    
+    }
 
-    public Livro[] obterLivrosDoUsuarioPorId(int id, boolean somenteFavoritos) {
+    Usuario usuarioBanco = this.repositorioUsuario.obterPorLogin(credenciais.getLogin());
+    if (usuarioBanco == null) {
+        return false;
+    }
+
+    String hashBanco = usuarioBanco.getSenha();
+    if (hashBanco == null || hashBanco.isEmpty()) {
+        return false;
+    }
+
+    try {
+        boolean ok = BCrypt.checkpw(credenciais.getSenha(), hashBanco);
+        return ok;
+    } catch (Exception ex) {
+        System.err.println("Erro verificando senha para login=" + credenciais.getLogin() + " : " + ex.getMessage());
+        return false;
+    }
+}    
+
+    public List<Livro> obterLivrosDoUsuarioPorId(int id, boolean somenteFavoritos) {
         LivroUsuario[] livrosUsuarios = repositorioLivroUsuario.obterTodos().toArray(new LivroUsuario[0]);
 
         Stream<LivroUsuario> livroUsuarioStream = Arrays.stream(livrosUsuarios).filter(x -> x.getUsuario().getId() == id);
         if(somenteFavoritos)
             livroUsuarioStream = livroUsuarioStream.filter(x -> x.getTipo() == TipoLivroUsuario.Favorito);
-        return (Livro[])livroUsuarioStream.map(x -> x.getLivro()).toArray();
+        return livroUsuarioStream.map(x -> x.getLivro()).toList();
     }
 
     private boolean verificarSenha(Usuario inserido, Usuario banco) {

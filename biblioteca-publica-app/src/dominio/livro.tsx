@@ -1,13 +1,13 @@
-import type { Autor } from "./autor";
-import type { Editora as Editora } from "./editora";
-import type { Entidade } from "./entidade";
+import { type Autor } from "./Autor";
+import { type Editora } from "./Editora";
 
-export interface Livro extends Entidade{
-    nome : string;
-    dataLancamento : Date;
-    genero : string;
-    idEditora : number;
-    editora : Editora;
-    idAutor : number;
-    autor : Autor;
+export class Livro {
+  id!: number;
+  dataCadastro!: string;
+  ativo!: boolean;
+  nome!: string;
+  dataLancamento?: string | null;
+  genero!: string;
+  autor?: Autor;
+  editora?: Editora;
 }
